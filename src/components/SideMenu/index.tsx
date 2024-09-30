@@ -1,4 +1,4 @@
-import { Nav, Enlace, Container } from "./styles";
+import { Nav, StyledLinkMenu, Container, StyledLinkPost } from "./styles";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -14,44 +14,46 @@ export default function Sidemenu() {
   return (
     <Nav>
       <Container>
-        <Enlace>
+        <StyledLinkMenu>
           <RiTwitterXFill />
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <IoHomeOutline /> Home
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <HiMagnifyingGlass />
           Explore
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <IoMdNotificationsOutline />
           Notifications
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <MdOutlineBookmarks />
           Bookmarks
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <FiMessageSquare />
           Messages
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <CgCommunity />
           Communities
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <MdOutlineWorkspacePremium />
           Premium
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <FaRegUser />
           Profile
-        </Enlace>
-        <Enlace>
+        </StyledLinkMenu>
+        <StyledLinkMenu>
           <CiCircleMore />
           More
-        </Enlace>
+        </StyledLinkMenu>
+        <StyledLinkPost>Post</StyledLinkPost>
+        //TODO: Add profile picture and logging options
       </Container>
     </Nav>
   );
