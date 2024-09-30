@@ -1,5 +1,7 @@
+import Sidemenu from "../../components/SideMenu";
+
 function App() {
-  return <p className="read-the-docs">Hello world!</p>;
+  return <Sidemenu />;
 }
 
 export default App;
