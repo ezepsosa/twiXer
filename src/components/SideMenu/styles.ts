@@ -33,7 +33,7 @@ const StyledLink = styled.a`
 `;
 
 export const StyledLinkMenu = styled(StyledLink)`
-  background-color: white;
+  background-color: #0000;
 
   &:hover {
     background-color: #efeeee;
