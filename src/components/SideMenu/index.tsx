@@ -53,7 +53,7 @@ export default function Sidemenu() {
           More
         </StyledLinkMenu>
         <StyledLinkPost>Post</StyledLinkPost>
-        //TODO: Add profile picture and logging options
+        {/* TODO: Add profile picture and logging options*/}
       </Container>
     </Nav>
   );
