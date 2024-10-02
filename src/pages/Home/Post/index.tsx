@@ -11,7 +11,7 @@ import { MdOutlineGifBox } from "react-icons/md";
 import { MdOutlinePoll } from "react-icons/md";
 import { FaRegSmile } from "react-icons/fa";
 import { RiCalendarScheduleLine } from "react-icons/ri";
-import { StyledLinkPost } from "../../../../styles/style";
+import { StyledLinkPost } from "../../../styles/style";
 
 export default function Post() {
   const [inputPostValue, setInputPostValue] = useState<string>("");
@@ -31,7 +31,7 @@ export default function Post() {
       <InnerContainer
         $justifycontent="space-between"
         $alignitems="center"
-        margin="0 1rem"
+        $margin="0 1rem"
       >
         <IconsContainer>
           <AiOutlinePicture color="#1d9bf0" />

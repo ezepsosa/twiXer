@@ -16,7 +16,7 @@ export const InnerContainer = styled.div<InnerContainerProps>`
   justify-content: ${({ $justifycontent }) => $justifycontent || "flex-start"};
   align-items: ${({ $alignitems }) => $alignitems || "flex-start"};
   padding: ${({ $padding }) => $padding || "0"};
-  margin: ${({ margin }) => margin || "0"};
+  margin: ${({ $margin }) => $margin || "0"};
   gap: 1rem;
 `;
 

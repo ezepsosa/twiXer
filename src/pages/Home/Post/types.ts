@@ -2,7 +2,7 @@ export interface InnerContainerProps {
   $justifycontent?: string;
   $padding?: string;
   $alignitems?: string;
-  margin?: string;
+  $margin?: string;
 }
 
 export interface ImageProps {
