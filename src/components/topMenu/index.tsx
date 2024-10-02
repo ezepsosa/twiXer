@@ -10,7 +10,7 @@ export default function TopMenu({ menuOptions }: Props) {
     <Nav>
       {menuOptions.map((menuOption) => (
         <StyledLink
-          isactive={menuOption.name === selectedOption}
+          $isactive={menuOption.name === selectedOption}
           key={menuOption.name}
           onClick={() => setSelectedComponent(menuOption.name)}
         >

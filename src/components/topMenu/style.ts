@@ -23,8 +23,8 @@ export const StyledLink = styled.div<StyledLinkProps>`
     border-bottom: 2px solid #000000; /* Línea debajo del enlace activo */
     font-weight: bold; /* Puedes hacer el texto en negrita o cambiar color */
   }
-  ${({ isactive }) =>
-    isactive &&
+  ${({ $isactive }) =>
+    $isactive &&
     `
     border-bottom: 3px solid #1d9bf0;
     font-weight: bold;

@@ -6,5 +6,5 @@ export type Props = {
 };
 
 export interface StyledLinkProps {
-  isactive: boolean;
+  $isactive: boolean;
 }
