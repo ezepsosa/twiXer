@@ -1,4 +1,4 @@
-import { Nav, StyledLinkMenu, Container, StyledLinkPost } from "./styles";
+import { Nav, Container } from "./styles";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -9,6 +9,7 @@ import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { CiCircleMore } from "react-icons/ci";
 import { RiTwitterXFill } from "react-icons/ri";
+import { StyledLinkMenu, StyledLinkPost } from "../../styles/style";
 
 export default function Sidemenu() {
   return (
