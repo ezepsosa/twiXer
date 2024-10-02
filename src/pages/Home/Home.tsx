@@ -1,5 +1,6 @@
 import TopMenu from "../../components/topMenu";
 import { menuOption } from "../../components/types";
+import Post from "./components/Post";
 import { Container } from "./style";
 
 const options: menuOption[] = [
@@ -17,6 +18,7 @@ function Home() {
   return (
     <Container>
       <TopMenu menuOptions={options}></TopMenu>
+      <Post />
     </Container>
   );
 }
