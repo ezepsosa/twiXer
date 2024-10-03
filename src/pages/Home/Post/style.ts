@@ -20,12 +20,6 @@ export const InnerContainer = styled.div<InnerContainerProps>`
   gap: 1rem;
 `;
 
-export const Image = styled.img`
-  width: 2.7rem;
-  height: 2.7rem;
-  border-radius: 2rem;
-`;
-
 export const InputText = styled.textarea<InputTextProps>`
   flex: 1;
   border: none;

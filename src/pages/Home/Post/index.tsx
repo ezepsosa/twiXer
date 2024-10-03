@@ -1,17 +1,11 @@
 import { useState } from "react";
-import {
-  Container,
-  IconsContainer,
-  Image,
-  InnerContainer,
-  InputText,
-} from "./style";
+import { Container, IconsContainer, InnerContainer, InputText } from "./style";
 import { AiOutlinePicture } from "react-icons/ai";
 import { MdOutlineGifBox } from "react-icons/md";
 import { MdOutlinePoll } from "react-icons/md";
 import { FaRegSmile } from "react-icons/fa";
 import { RiCalendarScheduleLine } from "react-icons/ri";
-import { StyledLinkPost } from "../../../styles/style";
+import { Image, StyledLinkPost } from "../../../styles/style";
 
 export default function Post() {
   const [inputPostValue, setInputPostValue] = useState<string>("");

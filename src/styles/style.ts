@@ -47,3 +47,43 @@ export const StyledLinkPost = styled(StyledLink)<styledLinkPostProps>`
     transition: 0.5s;
   }
 `;
+
+export const Image = styled.img`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2rem;
+`;
+
+export const PrimaryBtn = styled.button`
+  border: 0 solid black;
+  border-radius: 2rem;
+  height: 2rem;
+  padding: 0 1rem;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: #ffff;
+  background-color: #0f1419;
+
+  &:hover {
+    background-color: #272c30;
+    transition: 0.5s;
+  }
+`;
+
+export const UserNameText = styled.h1`
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0;
+`;
+
+export const UserUniqueNameText = styled.h1`
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #536471;
+  margin: 0;
+`;
