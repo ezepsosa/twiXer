@@ -9,4 +9,7 @@ export const Container = styled.div`
 export const InnerContainer = styled.div<InnerContainerProps>`
   border: ${({ $border }) => $border || "1px solid #eeeeee"};
   width: ${({ $width }) => $width || ""};
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

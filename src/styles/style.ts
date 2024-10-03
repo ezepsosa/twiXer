@@ -69,11 +69,16 @@ export const PrimaryBtn = styled.button`
   }
 `;
 
-export const UserNameText = styled.h1`
+export const PrimarySpan = styled.span`
   font-family: "Roboto", sans-serif;
   font-weight: 700;
-  font-size: 0.9rem;
-  margin: 0;
+  font-size: 0.8rem;
+`;
+export const SecondarySpan = styled.span`
+  font-family: "Roboto", sans-serif;
+  font-weight: 3400;
+  font-size: 0.75rem;
+  color: #616161;
 `;
 
 export const UserUniqueNameText = styled.h1`
@@ -83,4 +88,11 @@ export const UserUniqueNameText = styled.h1`
   font-style: italic;
   color: #536471;
   margin: 0;
+`;
+
+export const TitleCard = styled.h1`
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 1rem;
 `;
