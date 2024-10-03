@@ -2,17 +2,17 @@ import styled from "styled-components";
 
 export const InputText = styled.input`
   height: 2.5rem;
-  width: 70%;
+  width: 80%;
   border: none;
   background-color: #f3f3f3;
   border-radius: 2rem;
   outline: none;
-  margin: 0.25rem;
-  padding: 0 2rem;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
   font-style: normal;
-
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0 2rem;
   &:focus {
     background-color: #ffffff;
     outline: 1.4px solid #1d9bf0;
@@ -22,13 +22,13 @@ export const InputText = styled.input`
 export const Container = styled.div`
   position: relative;
   display: inline-block;
-  width: 15rem;
+  width: 100%;
 `;
 
 export const IconContainer = styled.div`
   position: absolute;
   left: 0.7rem; /* Ajusta la distancia del ícono al borde derecho */
-  top: 55%;
+  top: 43%;
   transform: translateY(-50%);
   color: #888;
   pointer-events: none; /* Evita que el ícono interfiera con la entrada de texto */

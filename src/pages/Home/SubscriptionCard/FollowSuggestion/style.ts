@@ -6,7 +6,6 @@ export const Container = styled.div`
   gap: 0.5rem;
   padding: 1rem;
   cursor: pointer;
-
   &:hover {
     background-color: #f3f3f3;
   }

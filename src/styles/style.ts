@@ -25,7 +25,6 @@ const StyledLink = styled.a`
 
 export const StyledLinkMenu = styled(StyledLink)`
   background-color: #0000;
-
   &:hover {
     background-color: #efeeee;
     transition: 0.5s;
@@ -35,13 +34,12 @@ export const StyledLinkMenu = styled(StyledLink)`
 export const StyledLinkPost = styled(StyledLink)<styledLinkPostProps>`
   background-color: #1d9bf0;
   color: white;
-  width: ${({ width }) => width || "100%"};
+  width: ${({ width }) => width || "11rem"};
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   font-size: 1rem;
-
   &:hover {
     background-color: #1b85cd;
     transition: 0.5s;
@@ -65,7 +63,6 @@ export const PrimaryBtn = styled.button`
   cursor: pointer;
   color: #ffff;
   background-color: #0f1419;
-
   &:hover {
     background-color: #272c30;
     transition: 0.5s;

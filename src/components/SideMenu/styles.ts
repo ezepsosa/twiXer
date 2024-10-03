@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Nav = styled.nav`
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  overflow-y: auto;
+  padding: 0 1rem;
 `;
 
 export const Container = styled.div`
@@ -11,6 +12,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
+  width: 15rem;
   align-items: flex-start;
-  gap: 1rem;
 `;

@@ -3,9 +3,10 @@ import { InnerContainerProps } from "./types";
 
 export const Container = styled.div`
   display: flex;
+  gap: 1.5rem;
 `;
 
 export const InnerContainer = styled.div<InnerContainerProps>`
   border: ${({ $border }) => $border || "1px solid #eeeeee"};
-  margin: 0 1rem;
+  width: ${({ $width }) => $width || ""};
 `;
