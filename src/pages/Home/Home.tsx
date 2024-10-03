@@ -1,7 +1,9 @@
-import TopMenu from "../../components/topMenu";
+import { SearchBar } from "../../components/SearchBar";
+import TopMenu from "../../components/TopMenu";
 import { menuOption } from "../../components/types";
-import Post from "./components/Post";
-import { Container } from "./style";
+import Post from "./Post";
+import { Container, InnerContainer } from "./style";
+import { SubscriptionCard } from "./SubscriptionCard";
 
 const options: menuOption[] = [
   {
@@ -17,8 +19,14 @@ const options: menuOption[] = [
 function Home() {
   return (
     <Container>
-      <TopMenu menuOptions={options}></TopMenu>
-      <Post />
+      <InnerContainer>
+        <TopMenu menuOptions={options}></TopMenu>
+        <Post />
+      </InnerContainer>
+      <InnerContainer $border="none">
+        <SearchBar />
+        <SubscriptionCard></SubscriptionCard>
+      </InnerContainer>
     </Container>
   );
 }
