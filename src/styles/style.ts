@@ -4,6 +4,7 @@ import { styledLinkPostProps } from "../components/types";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+  height: 100%;
 `;
 
 const StyledLink = styled.a`
@@ -18,7 +19,7 @@ const StyledLink = styled.a`
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
 `;
 
@@ -34,11 +35,13 @@ export const StyledLinkMenu = styled(StyledLink)`
 export const StyledLinkPost = styled(StyledLink)<styledLinkPostProps>`
   background-color: #1d9bf0;
   color: white;
-  width: ${({ width }) => width || "50%"};
+  width: ${({ width }) => width || "100%"};
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-size: 1rem;
+
   &:hover {
     background-color: #1b85cd;
     transition: 0.5s;

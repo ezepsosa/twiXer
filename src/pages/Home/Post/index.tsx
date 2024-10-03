@@ -40,7 +40,7 @@ export default function Post() {
           <FaRegSmile color="#1d9bf0" />
           <RiCalendarScheduleLine color="#1d9bf0" />
         </IconsContainer>
-        <StyledLinkPost width="20%">Post</StyledLinkPost>
+        <StyledLinkPost width="10%">Post</StyledLinkPost>
       </InnerContainer>
     </Container>
   );

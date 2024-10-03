@@ -4,7 +4,6 @@ export const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  height: 100%;
 `;
 
 export const Container = styled.div`
