@@ -1,7 +1,7 @@
 import {
   Image,
   PrimaryBtn,
-  UserNameText,
+  PrimarySpan,
   UserUniqueNameText,
 } from "../../../../styles/style";
 import { Container, InfoUserContainer, TextContainer } from "./style";
@@ -13,7 +13,7 @@ export function FollowSuggestion({ name, username, profileImage }: Props) {
       <Image src={profileImage} />
       <InfoUserContainer>
         <TextContainer>
-          <UserNameText>{name}</UserNameText>
+          <PrimarySpan>{name}</PrimarySpan>
           <UserUniqueNameText>@{username}</UserUniqueNameText>
         </TextContainer>
         <PrimaryBtn>Follow</PrimaryBtn>

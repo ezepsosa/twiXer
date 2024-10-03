@@ -1,5 +1,6 @@
+import { TitleCard } from "../../../styles/style";
 import { FollowSuggestion } from "./FollowSuggestion";
-import { Container, InnerContainer, ShowMoreLink, TitleCard } from "./style";
+import { Container, InnerContainer, ShowMoreLink } from "./style";
 
 export function SubscriptionCard() {
   return (

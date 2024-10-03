@@ -4,6 +4,7 @@ import { menuOption } from "../../components/types";
 import Post from "./Post";
 import { Container, InnerContainer } from "./style";
 import { SubscriptionCard } from "./SubscriptionCard";
+import { TrendCard } from "./TrendCard";
 
 const options: menuOption[] = [
   {
@@ -25,7 +26,8 @@ function Home() {
       </InnerContainer>
       <InnerContainer $border="none">
         <SearchBar />
-        <SubscriptionCard></SubscriptionCard>
+        <SubscriptionCard />
+        <TrendCard />
       </InnerContainer>
     </Container>
   );
