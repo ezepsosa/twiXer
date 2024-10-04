@@ -23,6 +23,12 @@ export const Container = styled.div`
   position: relative;
   display: inline-block;
   width: 100%;
+
+  // Styles to mantain the navbar in the upper level
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
 `;
 
 export const IconContainer = styled.div`

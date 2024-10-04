@@ -20,11 +20,11 @@ const options: menuOption[] = [
 function Home() {
   return (
     <Container>
-      <InnerContainer>
+      <InnerContainer $width="34rem">
         <TopMenu menuOptions={options}></TopMenu>
         <Post />
       </InnerContainer>
-      <InnerContainer $border="none">
+      <InnerContainer $border="none" $toHide={true}>
         <SearchBar />
         <SubscriptionCard />
         <TrendCard />

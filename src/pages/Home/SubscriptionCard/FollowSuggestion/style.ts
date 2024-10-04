@@ -19,6 +19,6 @@ export const TextContainer = styled.div`
 export const InfoUserContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 6rem;
+  gap: 4rem;
   juistify-content: space-between;
 `;

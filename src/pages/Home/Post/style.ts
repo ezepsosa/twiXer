@@ -3,16 +3,14 @@ import { InnerContainerProps, InputTextProps } from "./types";
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
-  flex: 1;
   border-bottom: 1px solid #eeeeee;
   padding-bottom: 1rem;
 `;
 
 export const InnerContainer = styled.div<InnerContainerProps>`
   display: flex;
-
   justify-content: ${({ $justifycontent }) => $justifycontent || "flex-start"};
   align-items: ${({ $alignitems }) => $alignitems || "flex-start"};
   padding: ${({ $padding }) => $padding || "0"};
@@ -24,9 +22,8 @@ export const InputText = styled.textarea<InputTextProps>`
   flex: 1;
   border: none;
   outline: none;
-
   font-family: "Roboto", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.25rem;
   font-style: normal;
   resize: none;

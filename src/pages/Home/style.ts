@@ -12,4 +12,11 @@ export const InnerContainer = styled.div<InnerContainerProps>`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  ${({ $toHide }) =>
+    $toHide &&
+    `
+    @media (max-width: 768px) {
+      display: none;
+}`}
 `;

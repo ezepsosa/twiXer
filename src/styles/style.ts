@@ -2,9 +2,20 @@ import styled from "styled-components";
 import { styledLinkPostProps } from "../components/types";
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 30% 70%;
   height: 100%;
+  width: 100%;
+`;
+
+export const Header = styled.header`
+  display: flex;
+  justify-content: flex-end;
+  overflow-y: auto;
+`;
+
+export const Main = styled.main`
+  overflow-y: auto;
 `;
 
 const StyledLink = styled.a`
@@ -55,8 +66,8 @@ export const Image = styled.img`
 export const PrimaryBtn = styled.button`
   border: 0 solid black;
   border-radius: 2rem;
-  height: 2rem;
-  padding: 0 1rem;
+  height: 1.8rem;
+  padding: 0 1.1rem;
   font-weight: 700;
   font-style: normal;
   font-size: 0.875rem;
@@ -85,7 +96,6 @@ export const UserUniqueNameText = styled.h1`
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 0.9rem;
-  font-style: italic;
   color: #536471;
   margin: 0;
 `;
@@ -95,4 +105,14 @@ export const TitleCard = styled.h1`
   font-weight: 700;
   font-size: 1.25rem;
   margin: 1rem;
+`;
+
+export const PrimaryText = styled.h1`
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  font-style: normal;
+  max-width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
 `;

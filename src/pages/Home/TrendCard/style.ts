@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   border: 1px solid #eeeeee;
   border-radius: 1rem;
+  width: 20rem;
 `;
 
 export const InnerContainer = styled.div`

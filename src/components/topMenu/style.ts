@@ -9,6 +9,13 @@ export const Nav = styled.nav`
   font-weight: 500;
   font-style: normal;
   cursor: pointer;
+  justify-content: center;
+
+  // Styles to mantain the navbar in the upper level
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
 `;
 
 export const StyledLink = styled.div<StyledLinkProps>`
@@ -16,6 +23,7 @@ export const StyledLink = styled.div<StyledLinkProps>`
   text-decoration: none;
   color: #333333;
   transition: 0.5s;
+  flex-grow: 1;
   &:hover {
     background-color: #d8d8d8;
   }
