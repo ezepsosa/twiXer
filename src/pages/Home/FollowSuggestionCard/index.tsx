@@ -1,7 +1,7 @@
 import { User } from "../../../components/types";
 import { TitleCard } from "../../../styles/style";
-import { FollowSuggestion } from "./FollowSuggestion";
 import { Container, InnerContainer, ShowMoreLink } from "./style";
+import { FollowSuggestion } from "./UserSuggestion";
 
 const user: User = {
   name: "WickedZequi",
