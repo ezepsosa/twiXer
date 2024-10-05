@@ -1,5 +1,4 @@
+import { User } from "../../../../components/types";
 export interface Props {
-  name: string;
-  username: string;
-  profileImage: string;
+  user: User;
 }
