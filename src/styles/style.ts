@@ -58,8 +58,8 @@ export const StyledLinkPost = styled(StyledLink)<styledLinkPostProps>`
 `;
 
 export const Image = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: 2rem;
 `;
 
@@ -87,9 +87,12 @@ export const PrimarySpan = styled.span`
 `;
 export const SecondarySpan = styled.span`
   font-family: "Roboto", sans-serif;
-  font-weight: 3400;
+  font-weight: 400;
   font-size: 0.75rem;
   color: #616161;
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
 `;
 
 export const UserUniqueNameText = styled.h1`
@@ -110,9 +113,11 @@ export const TitleCard = styled.h1`
 export const PrimaryText = styled.h1`
   font-family: "Roboto", sans-serif;
   font-weight: 300;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-style: normal;
   max-width: 100%;
   word-wrap: break-word;
   white-space: normal;
+  margin: 0;
 `;
+export const Media = styled.img``;

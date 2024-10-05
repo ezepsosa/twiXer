@@ -7,14 +7,14 @@ import {
 import { Container, InfoUserContainer, TextContainer } from "./style";
 import { Props } from "./types";
 
-export function FollowSuggestion({ name, username, profileImage }: Props) {
+export function FollowSuggestion({ user }: Props) {
   return (
     <Container>
-      <Image src={profileImage} />
+      <Image src={user.profileImage} />
       <InfoUserContainer>
         <TextContainer>
-          <PrimarySpan>{name}</PrimarySpan>
-          <UserUniqueNameText>@{username}</UserUniqueNameText>
+          <PrimarySpan>{user.name}</PrimarySpan>
+          <UserUniqueNameText>@{user.username}</UserUniqueNameText>
         </TextContainer>
         <PrimaryBtn>Follow</PrimaryBtn>
       </InfoUserContainer>

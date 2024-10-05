@@ -11,7 +11,7 @@ export const InnerContainer = styled.div<InnerContainerProps>`
   width: ${({ $width }) => $width || ""};
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: ${({ $gap }) => $gap || "1rem"};
 
   ${({ $toHide }) =>
     $toHide &&
