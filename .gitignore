@@ -24,8 +24,6 @@ dist-ssr
 *.sw?
 
 
-
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -59,6 +57,6 @@ build/
 
 ### VS Code ###
 .vscode/
-
+.vite
 
 backend/api/src/main/resources/application.properties
