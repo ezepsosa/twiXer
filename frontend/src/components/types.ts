@@ -8,17 +8,21 @@ export interface styledLinkPostProps {
 }
 
 export interface Tweet {
+  id: number;
   user: User;
   text: string;
   reposts: number;
   likes: number;
-  comments?: Tweet[];
   media: string[];
-  date: number;
+  date: string;
 }
 
 export interface User {
-  name: string;
+  id: number;
+  profilePictureUrl: string;
   username: string;
-  profileImage: string;
+  name: string;
+  email: string;
+  signUpDate: string;
+  password: string;
 }

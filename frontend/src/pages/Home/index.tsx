@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react";
+import { getPosts } from "../../components/api";
 import { SearchBar } from "../../components/SearchBar";
 import TopMenu from "../../components/TopMenu";
-import TweetPost from "../../components/Tweet";
-import { menuOption, Tweet, User } from "../../components/types";
+import { menuOption, Tweet } from "../../components/types";
 import { SubscriptionCard } from "./FollowSuggestionCard";
 import Post from "./Post";
 import { Container, InnerContainer } from "./style";
 import { TrendCard } from "./TrendCard";
+import TweetPost from "../../components/Tweet";
 
 const options: menuOption[] = [
   {
@@ -18,44 +20,27 @@ const options: menuOption[] = [
   },
 ];
 
-const user: User = {
-  name: "WickedZequi",
-  username: "WickedZequi",
-  profileImage: "\\src\\assets\\defaultimage.png",
-};
-
-const tweets: Tweet[] = [
-  {
-    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi obcaecati voluptate perferendis, illum esse ad at. Iusto hic ut cum.",
-    media: [
-      "\\src\\assets\\defaultimage.png",
-      "\\src\\assets\\defaultimage.png",
-    ],
-    date: Date.now(),
-    likes: 12,
-    reposts: 43,
-    user: user,
-  },
-];
-
 function Home() {
+  const [usePost, setUsePost] = useState<Tweet[]>([]);
+
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const data = await getPosts();
+        setUsePost(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    loadPosts();
+  }, []);
+
   return (
     <Container>
       <InnerContainer $width="34rem" $gap="0rem">
         <TopMenu menuOptions={options} />
         <Post />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
-        <TweetPost tweets={tweets} />
+        {usePost ? <TweetPost tweets={usePost} /> : null}
       </InnerContainer>
       <InnerContainer $border="none" $toHide={true}>
         <SearchBar />
