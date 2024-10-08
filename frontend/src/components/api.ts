@@ -1,12 +1,17 @@
+import { AiFillMedicineBox } from "react-icons/ai";
 import { Tweet, User } from "./types";
 import axios, { AxiosResponse } from "axios";
 
-const endpoint = `http://localhost:8080/api/v1/`;
+const API_BASE_URL = `http://localhost:8080/api/v1/`;
+
+const apiService = axios.create({
+  baseURL: API_BASE_URL,
+});
 
 // Función para obtener usuarios
 export async function getUsers(): Promise<User[]> {
   try {
-    const res: AxiosResponse<User[]> = await axios.get(endpoint + "user/all");
+    const res: AxiosResponse<User[]> = await apiService.get("user/all");
     return res.data; // Devuelve la lista de usuarios
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -28,7 +33,7 @@ export async function getUsers(): Promise<User[]> {
 // Función para obtener posts
 export async function getPosts(): Promise<Tweet[]> {
   try {
-    const res: AxiosResponse<Tweet[]> = await axios.get(endpoint + "post/all");
+    const res: AxiosResponse<Tweet[]> = await apiService.get("post/all");
     return res.data; // Devuelve la lista de posts
   } catch (error) {
     if (axios.isAxiosError(error)) {
