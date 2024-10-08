@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.twixer.api.entity.User;
 import com.twixer.api.repository.UserRepository;
 
-import lombok.NoArgsConstructor;
 
 @Service
 public class UserService {

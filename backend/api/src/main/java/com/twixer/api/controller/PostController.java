@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.twixer.api.entity.User;
-import com.twixer.api.service.UserService;
+import com.twixer.api.entity.Post;
+import com.twixer.api.service.PostService;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/post")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
-public class UserController {
+public class PostController {
 	
 	@Autowired
-	private UserService userService;
-	
+	private PostService postService;
+
 	@GetMapping("all")
-	public List<User> getAllUsers(){
-		return userService.showAllUsers();
+	public List<Post> getAllPosts(){
+		List<Post> res = this.postService.getAllPosts();
+		return this.postService.getAllPosts();
 	}
-	
 }
