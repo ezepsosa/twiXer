@@ -1,5 +1,6 @@
 package com.twixer.api.security.jwt;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -43,9 +44,8 @@ public class JwtUtils {
 	}
 
 	public boolean validateJwtToken(String authToken) {
-		SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key().toString()));
 		try {
-			Jwts.parser().verifyWith(secret).build().parse(authToken);
+			Jwts.parser().setSigningKey(key()).build().parse(authToken);
 			return true;
 		} catch (MalformedJwtException e) {
 			logger.error("Invalid JWT token: {}", e.getMessage());
@@ -61,8 +61,9 @@ public class JwtUtils {
 	}
 
 	public String getUserNameFromJwtToken(String token) {
-		SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key().toString()));
-		return Jwts.parser().verifyWith(secret).build().parseUnsecuredClaims(token).getPayload().getSubject();
+		return Jwts.parser().setSigningKey(key()) // Usamos setSigningKey para verificar la firma
+				.build().parseClaimsJws(token) // Verificamos y parseamos los claims
+				.getBody().getSubject();
 	}
 
 }

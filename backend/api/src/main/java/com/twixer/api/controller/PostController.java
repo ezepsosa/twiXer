@@ -21,7 +21,6 @@ public class PostController {
 
 	@GetMapping("all")
 	public List<Post> getAllPosts(){
-		List<Post> res = this.postService.getAllPosts();
 		return this.postService.getAllPosts();
 	}
 }

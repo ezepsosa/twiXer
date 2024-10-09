@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,31 +37,29 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//@Column(nullable = false)
 	private String username;
 
-	//@Column(nullable = false)
 	private String name;
-
-	//@Column(nullable = false)
+	@JsonIgnore
 	private String password;
 
-	//@Column(nullable = false)
 	private String email;
 
 	private String profilePictureUrl;
 
-	//@Column(nullable = false)
 	private Date signUpDate;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	public User(String username, String email, String password) {
+	public User(String username, String email, String password, String name, String profilePictureUrl) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.name = name;
+		this.profilePictureUrl = profilePictureUrl;
+		this.signUpDate = new Date();
 	}
 
 }
