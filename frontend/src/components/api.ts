@@ -1,5 +1,4 @@
-import { AiFillMedicineBox } from "react-icons/ai";
-import { Tweet, User } from "./types";
+import { LoginRequest, LoginResponse, Tweet, User } from "./types";
 import axios, { AxiosResponse } from "axios";
 
 const API_BASE_URL = `http://localhost:8080/api/v1/`;
@@ -46,6 +45,30 @@ export async function getPosts(): Promise<Tweet[]> {
       throw {
         message: "An unexpected error occurred",
         statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function Login(login: LoginRequest): Promise<LoginResponse> {
+  try {
+    const res: AxiosResponse<LoginResponse> = await apiService.post(
+      "auth/signin",
+      login
+    );
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw {
+        message: "Failed to fetch posts",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred",
+        statusText: "Unkown Error",
         status: 500,
       };
     }
