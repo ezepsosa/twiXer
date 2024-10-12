@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Nav, StyledLink } from "./style";
+import { Nav, StyledLinkTopMenu } from "./style";
 import { Props } from "./types";
 
 export default function TopMenu({ menuOptions }: Props) {
@@ -9,13 +9,13 @@ export default function TopMenu({ menuOptions }: Props) {
   return (
     <Nav>
       {menuOptions.map((menuOption) => (
-        <StyledLink
+        <StyledLinkTopMenu
           $isactive={menuOption.name === selectedOption}
           key={menuOption.name}
           onClick={() => setSelectedComponent(menuOption.name)}
         >
           {menuOption.name}
-        </StyledLink>
+        </StyledLinkTopMenu>
       ))}
     </Nav>
   );

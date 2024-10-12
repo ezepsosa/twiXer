@@ -18,7 +18,7 @@ export const Nav = styled.nav`
   background-color: white;
 `;
 
-export const StyledLink = styled.div<StyledLinkProps>`
+export const StyledLinkTopMenu = styled.div<StyledLinkProps>`
   padding: 1rem 5rem;
   text-decoration: none;
   color: #333333;

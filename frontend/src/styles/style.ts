@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { styledLinkPostProps } from "../components/types";
+import {
+  ImgProps,
+  PrimaryButtonProps,
+  TextProps,
+  styledLinkPostProps,
+} from "../components/types";
 
 export const Container = styled.div`
   display: grid;
@@ -18,7 +23,7 @@ export const Main = styled.main`
   overflow-y: auto;
 `;
 
-const StyledLink = styled.a`
+const StyledLinkMenu = styled.a`
   border: 0 solid black;
   text-align: center;
   border-radius: 2rem;
@@ -34,7 +39,7 @@ const StyledLink = styled.a`
   cursor: pointer;
 `;
 
-export const StyledLinkMenu = styled(StyledLink)`
+export const LinkMenu = styled(StyledLinkMenu)`
   background-color: #0000;
   &:hover {
     background-color: #efeeee;
@@ -42,7 +47,7 @@ export const StyledLinkMenu = styled(StyledLink)`
   }
 `;
 
-export const StyledLinkPost = styled(StyledLink)<styledLinkPostProps>`
+export const LinkPost = styled(StyledLinkMenu)<styledLinkPostProps>`
   background-color: #1d9bf0;
   color: white;
   width: ${({ width }) => width || "11rem"};
@@ -57,10 +62,15 @@ export const StyledLinkPost = styled(StyledLink)<styledLinkPostProps>`
   }
 `;
 
-export const Image = styled.img`
+export const Image = styled.img<ImgProps>`
   width: 2.2rem;
   height: 2.2rem;
   border-radius: 2rem;
+  filter: ${({ $filter }) => {
+    if ($filter) {
+      return "invert(1)";
+    }
+  }};
 `;
 
 export const PrimaryBtn = styled.button`
@@ -80,21 +90,21 @@ export const PrimaryBtn = styled.button`
   }
 `;
 
-export const PrimarySpan = styled.span`
+export const PrimarySpan = styled.span<TextProps>`
   font-family: "Roboto", sans-serif;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: ${({ $fontSize }) => $fontSize || "0.8rem"};
+  color: ${({ $color }) => $color || "black"};
 `;
-export const SecondarySpan = styled.span`
+export const SecondarySpan = styled.span<TextProps>`
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  font-size: 0.75rem;
-  color: #616161;
+  font-size: ${({ $fontSize }) => $fontSize || "0.75rem"};
+  color: ${({ $color }) => $color || "#616161"};
   display: flex;
   justify-content: center;
   gap: 0.3rem;
 `;
-
 export const UserUniqueNameText = styled.h1`
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -121,3 +131,32 @@ export const PrimaryText = styled.h1`
   margin: 0;
 `;
 export const Media = styled.img``;
+
+export const PrimaryButton = styled.button<PrimaryButtonProps>`
+  margin: 0.25rem 0;
+  width: 18rem;
+  height: 2.2rem;
+  background-color: ${({ $backgrdoundColor }) => $backgrdoundColor || "black"};
+  color: ${({ $color }) => $color || "#1d9bf0"};
+  border: ${({ $borderLine }) => $borderLine || "1px solid #1d9bf0"};
+  border-radius: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  &:hover {
+    background-color: ${({ $hoverBackgroundColor }) =>
+      $hoverBackgroundColor || "#031018"};
+  }
+`;
+
+export const InputText = styled.input<TextProps>`
+  background-color: black;
+  border: 1px solid #8d8d8d;
+  height: 2rem;
+  width: 15rem;
+  padding: 0.4rem;
+  border-radius: 0.25rem;
+  color: ${({ $color }) => $color || "white"};
+`;
+
+export const StyledLink = styled.a``;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputText = styled.input`
+export const SearchInput = styled.input`
   height: 2.5rem;
   width: 80%;
   border: none;

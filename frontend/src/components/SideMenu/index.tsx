@@ -9,51 +9,51 @@ import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { CiCircleMore } from "react-icons/ci";
 import { RiTwitterXFill } from "react-icons/ri";
-import { StyledLinkMenu, StyledLinkPost } from "../../styles/style";
+import { LinkMenu, LinkPost } from "../../styles/style";
 
 export default function Sidemenu() {
   return (
     <Nav>
       <Container>
-        <StyledLinkMenu>
+        <LinkMenu>
           <RiTwitterXFill />
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <IoHomeOutline /> Home
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <HiMagnifyingGlass />
           Explore
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <IoMdNotificationsOutline />
           Notifications
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <MdOutlineBookmarks />
           Bookmarks
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <FiMessageSquare />
           Messages
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <CgCommunity />
           Communities
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <MdOutlineWorkspacePremium />
           Premium
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <FaRegUser />
           Profile
-        </StyledLinkMenu>
-        <StyledLinkMenu>
+        </LinkMenu>
+        <LinkMenu>
           <CiCircleMore />
           More
-        </StyledLinkMenu>
-        <StyledLinkPost>Post</StyledLinkPost>
+        </LinkMenu>
+        <LinkPost>Post</LinkPost>
         {/* TODO: Add profile picture and logging options*/}
       </Container>
     </Nav>

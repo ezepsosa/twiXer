@@ -1,9 +1,9 @@
 import { HiMagnifyingGlass } from "react-icons/hi2";
-import { Container, IconContainer, InputText } from "./style";
+import { Container, IconContainer, SearchInput } from "./style";
 
 export const SearchBar = (): JSX.Element => (
   <Container>
-    <InputText type="text" placeholder="Search" />
+    <SearchInput type="text" placeholder="Search" />
     <IconContainer>
       <HiMagnifyingGlass />
     </IconContainer>
