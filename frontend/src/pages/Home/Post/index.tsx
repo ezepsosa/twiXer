@@ -5,16 +5,16 @@ import { MdOutlineGifBox } from "react-icons/md";
 import { MdOutlinePoll } from "react-icons/md";
 import { FaRegSmile } from "react-icons/fa";
 import { RiCalendarScheduleLine } from "react-icons/ri";
-import { Image, StyledLinkPost } from "../../../styles/style";
+import { Image, LinkPost } from "../../../styles/style";
 
 export default function Post() {
   const [inputPostValue, setInputPostValue] = useState<string>("");
-  console.log(inputPostValue);
   return (
     <Container>
       <InnerContainer $padding="1rem">
         <Image src="/src/assets/profile.jpg" />
         <InputText
+          value={inputPostValue}
           maxLength={240}
           $scrollHeight={inputPostValue.length}
           onChange={(event) => setInputPostValue(event?.target.value)}
@@ -34,7 +34,7 @@ export default function Post() {
           <FaRegSmile color="#1d9bf0" />
           <RiCalendarScheduleLine color="#1d9bf0" />
         </IconsContainer>
-        <StyledLinkPost width="10%">Post</StyledLinkPost>
+        <LinkPost width="10%">Post</LinkPost>
       </InnerContainer>
     </Container>
   );
