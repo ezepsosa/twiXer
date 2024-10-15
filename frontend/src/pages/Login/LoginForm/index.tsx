@@ -17,23 +17,22 @@ import {
   BottomInnerContainer,
   StyledLinkLogin,
 } from "./style";
-import { Login } from "../../../components/api";
+import { useAuth } from "../../../provider/authProvider";
 
 // LoginForm Modal Component
 export default function LoginForm({ closeModal }: { closeModal: () => void }) {
   const [nextStepLogin, setNextStepLogin] = useState<boolean>(false);
-  const [userName, setUsername] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const auth = useAuth();
 
   async function handleLogin() {
     const loginRequest: LoginRequest = {
-      username: userName,
+      username: username,
       password: password,
     };
-    const data = await Login(loginRequest);
-    console.log(data.accessToken);
+    auth.loginAction(loginRequest);
   }
-
   return (
     <Overlay>
       <Container>
@@ -55,7 +54,7 @@ export default function LoginForm({ closeModal }: { closeModal: () => void }) {
             </PrimarySpan>
             <InputText
               placeholder="Phone, email address, or username"
-              value={userName}
+              value={username}
               onChange={(event) => setUsername(event?.target.value)}
             ></InputText>
             <PrimaryButton
@@ -83,7 +82,7 @@ export default function LoginForm({ closeModal }: { closeModal: () => void }) {
             </PrimarySpan>
             <InputText
               placeholder="Phone, email address, or username"
-              value={userName}
+              value={username}
               disabled={true}
               $color="gray"
             ></InputText>

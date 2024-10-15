@@ -23,10 +23,7 @@ export default function TweetPost({ tweets }: Props) {
   return (
     <div>
       {tweets.map((tweet, index) => (
-        <Container
-          key={index}
-          onClick={() => console.log(tweet.user.profilePictureUrl)}
-        >
+        <Container key={index}>
           <Image src={tweet.user.profilePictureUrl} />
           <InfoTweetContainer>
             <InfoUserContainer>

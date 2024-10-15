@@ -10,7 +10,9 @@ const apiService = axios.create({
 // Función para obtener usuarios
 export async function getUsers(): Promise<User[]> {
   try {
-    const res: AxiosResponse<User[]> = await apiService.get("user/all");
+    const res: AxiosResponse<User[]> = await apiService.get("user/all", {
+      headers: authHeader(),
+    });
     return res.data; // Devuelve la lista de usuarios
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -21,7 +23,7 @@ export async function getUsers(): Promise<User[]> {
       };
     } else {
       throw {
-        message: "An unexpected error occurred",
+        message: "An unexpected error occurred fetching users",
         statusText: "Unknown Error",
         status: 500,
       };
@@ -32,7 +34,9 @@ export async function getUsers(): Promise<User[]> {
 // Función para obtener posts
 export async function getPosts(): Promise<Tweet[]> {
   try {
-    const res: AxiosResponse<Tweet[]> = await apiService.get("post/all");
+    const res: AxiosResponse<Tweet[]> = await apiService.get("post/all", {
+      headers: authHeader(),
+    });
     return res.data; // Devuelve la lista de posts
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -43,7 +47,7 @@ export async function getPosts(): Promise<Tweet[]> {
       };
     } else {
       throw {
-        message: "An unexpected error occurred",
+        message: "An unexpected error occurred fetching post",
         statusText: "Unknown Error",
         status: 500,
       };
@@ -61,16 +65,25 @@ export async function Login(login: LoginRequest): Promise<LoginResponse> {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw {
-        message: "Failed to fetch posts",
+        message: "Failed to authenticate",
         statusText: error.response?.statusText || "Network Error",
         status: error.response?.status || 500,
       };
     } else {
       throw {
-        message: "An unexpected error occurred",
+        message: "An unexpected error occurred autheticating",
         statusText: "Unkown Error",
         status: 500,
       };
     }
+  }
+}
+
+export default function authHeader() {
+  const user = JSON.parse(localStorage.getItem("site") || "");
+  if (user != "" && user.accessToken) {
+    return { Authorization: "Bearer " + user.accessToken };
+  } else {
+    return {};
   }
 }
