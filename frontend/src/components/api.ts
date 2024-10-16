@@ -31,7 +31,7 @@ export async function getUsers(): Promise<User[]> {
   }
 }
 
-// Función para obtener posts
+// Method to fetch every post
 export async function getPosts(): Promise<Tweet[]> {
   try {
     const res: AxiosResponse<Tweet[]> = await apiService.get("post/all", {
@@ -48,6 +48,30 @@ export async function getPosts(): Promise<Tweet[]> {
     } else {
       throw {
         message: "An unexpected error occurred fetching post",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+// Method to fetch every post ordered by Date
+export async function getAllPostsOrderedByDate(): Promise<Tweet[]> {
+  try {
+    const res: AxiosResponse<Tweet[]> = await apiService.get("post/recent", {
+      headers: authHeader(),
+    });
+    return res.data; // Devuelve la lista de posts
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw {
+        message: "Failed to fetch posts ordered by date",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred fetching post ordered by date",
         statusText: "Unknown Error",
         status: 500,
       };

@@ -24,12 +24,11 @@ export interface Tweet {
 
 export interface User {
   id: number;
-  profilePictureUrl: string;
   username: string;
   name: string;
   email: string;
+  profilePictureUrl: string;
   signUpDate: string;
-  password: string;
 }
 
 export interface ImgProps {

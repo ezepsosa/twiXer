@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPosts } from "../../components/api";
+import { getAllPostsOrderedByDate } from "../../components/api";
 import { SearchBar } from "../../components/SearchBar";
 import TopMenu from "../../components/TopMenu";
 import { menuOption, Tweet } from "../../components/types";
@@ -21,15 +21,18 @@ const options: menuOption[] = [
 ];
 
 function Home() {
-  const [usePost, setUsePost] = useState<Tweet[]>([]);
+  const [post, setPost] = useState<Tweet[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function loadPosts() {
       try {
-        const data = await getPosts();
-        setUsePost(data);
+        const data = await getAllPostsOrderedByDate();
+        setPost(data);
       } catch (err) {
         console.log(err);
+      } finally {
+        setLoading(false);
       }
     }
     loadPosts();
@@ -40,7 +43,9 @@ function Home() {
       <InnerContainer $width="34rem" $gap="0rem">
         <TopMenu menuOptions={options} />
         <Post />
-        {usePost ? <TweetPost tweets={usePost} /> : null}
+        {loading ? <p>loading</p> : null}
+
+        {post ? <TweetPost tweets={post} /> : null}
       </InnerContainer>
       <InnerContainer $border="none" $toHide={true}>
         <SearchBar />
