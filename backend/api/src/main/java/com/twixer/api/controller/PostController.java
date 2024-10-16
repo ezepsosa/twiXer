@@ -23,4 +23,9 @@ public class PostController {
 	public List<Post> getAllPosts(){
 		return this.postService.getAllPosts();
 	}
+	
+	@GetMapping("recent")
+	public List<Post> getRecentPosts(){
+		return this.postService.getPostsOrderedByDate();
+	}
 }
