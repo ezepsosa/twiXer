@@ -160,3 +160,10 @@ export const InputText = styled.input<TextProps>`
 `;
 
 export const StyledLink = styled.a``;
+
+export const ErrorSpan = styled.span<TextProps>`
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: red;
+  font-size: 0.8rem;
+`;

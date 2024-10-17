@@ -64,3 +64,5 @@ export const StyledLinkLogin = styled(Link)`
   cursor: pointer;
   text-decoration: none;
 `;
+
+export const LoginFormContainer = styled.form``;
