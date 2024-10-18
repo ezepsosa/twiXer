@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.twixer.api.security.services.UserDetailsImpl;
 
@@ -20,6 +21,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class JwtUtils {
@@ -61,9 +63,20 @@ public class JwtUtils {
 	}
 
 	public String getUserNameFromJwtToken(String token) {
-		return Jwts.parser().setSigningKey(key()) // Usamos setSigningKey para verificar la firma
-				.build().parseClaimsJws(token) // Verificamos y parseamos los claims
+		return Jwts.parser().setSigningKey(key()) 
+				.build().parseClaimsJws(token)
 				.getBody().getSubject();
+	}
+	public String getUserNameFromRequest(HttpServletRequest request) {
+	    String headerAuth = request.getHeader("Authorization");
+
+	    if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+	    	headerAuth = headerAuth.substring(7, headerAuth.length());
+			return getUserNameFromJwtToken(headerAuth);
+			}else {
+	    	return null;
+	    }
+
 	}
 
 }
