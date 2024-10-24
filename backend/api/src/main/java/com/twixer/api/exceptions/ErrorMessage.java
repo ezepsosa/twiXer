@@ -2,6 +2,13 @@ package com.twixer.api.exceptions;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ErrorMessage {
 
 	private int statusCode;
@@ -9,26 +16,4 @@ public class ErrorMessage {
 	private String message;
 	private String description;
 
-	public ErrorMessage(int statusCode, Date timestamp, String message, String description) {
-		this.statusCode = statusCode;
-		this.timestamp = timestamp;
-		this.message = message;
-		this.description = description;
-	}
-
-	public int getStatusCode() {
-		return statusCode;
-	}
-
-	public Date getTimestamp() {
-		return timestamp;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public String getDescription() {
-		return description;
-	}
 }

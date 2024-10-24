@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.twixer.api.entity.User;
-import com.twixer.api.security.jwt.JwtUtils;
 import com.twixer.api.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,9 +20,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private JwtUtils jwtUtils;
-
 	@GetMapping("all")
 	public List<User> getAllUsers() {
 		return userService.showAllUsers();
@@ -31,13 +27,12 @@ public class UserController {
 
 	@GetMapping("/following/all")
 	public Set<User> getUsersFollowedByUser(HttpServletRequest request) {
-		String username = jwtUtils.getUserNameFromRequest(request);
-		return userService.showUsersFollowedByUser(username);
+		return userService.showUsersFollowedByUser(request.getCookies());
 	};
 
 	@GetMapping("/following/suggestions")
 	public Set<User> getSuggestionsToFollowByUser(HttpServletRequest request) {
-		String username = jwtUtils.getUserNameFromRequest(request);
-		return userService.showSuggestionsToFollowByUser(username);
+		return userService.showSuggestionsToFollowByUser(request.getCookies());
 	}
+	
 }

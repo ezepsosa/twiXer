@@ -2,7 +2,20 @@ package com.twixer.api.entity.payload.response;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class JwtResponse {
+	
+	private String accessToken;
+	private String refreshToken;
+	/*
 	private String token;
 	private String type = "Bearer";
 	private String refreshToken;
@@ -72,4 +85,5 @@ public class JwtResponse {
 	public void setRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
 	}
+	*/
 }

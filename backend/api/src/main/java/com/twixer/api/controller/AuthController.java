@@ -1,17 +1,19 @@
 package com.twixer.api.controller;
 
+import java.util.Arrays;
 import java.util.HashSet;
-
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,23 +26,27 @@ import com.twixer.api.entity.Role;
 import com.twixer.api.entity.User;
 import com.twixer.api.entity.payload.request.LoginRequest;
 import com.twixer.api.entity.payload.request.SignupRequest;
-import com.twixer.api.entity.payload.request.TokenRefreshRequest;
-import com.twixer.api.entity.payload.response.JwtResponse;
 import com.twixer.api.entity.payload.response.MessageResponse;
-import com.twixer.api.entity.payload.response.TokenRefreshResponse;
-import com.twixer.api.exceptions.TokenRefreshException;
 import com.twixer.api.repository.RoleRepository;
 import com.twixer.api.repository.UserRepository;
 import com.twixer.api.security.jwt.JwtUtils;
 import com.twixer.api.security.services.RefreshTokenService;
 import com.twixer.api.security.services.UserDetailsImpl;
-
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
+
+	@Value("${jwt.refreshExpirationMs}")
+	private int refreshExpirationMs;
+
+	@Value("${jwt.expiration}")
+	private int expiration;
 
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -61,34 +67,30 @@ public class AuthController {
 	RefreshTokenService refreshTokenService;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
+			HttpServletResponse response) {
+		try {
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+			RefreshToken refreshToken = refreshTokenService.createRefreshToken(loginRequest.getUsername());
+			String accessToken = jwtUtils.GenerateToken(userDetails.getUsername());
+			ResponseCookie cookie = ResponseCookie.from("accessToken", accessToken).httpOnly(true).secure(false)
+					.path("/").maxAge(expiration).build();
+			ResponseCookie refreshTokenCookie = ResponseCookie.from("refresh", refreshToken.getToken())
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken((UserDetailsImpl) authentication.getPrincipal());
+					.httpOnly(true).secure(false).path("/").maxAge(refreshExpirationMs).build();
+			response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+			response.addHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
+			return ResponseEntity.status(HttpStatus.OK).body("Succesfully logged");
+		} catch (BadCredentialsException e) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-				.collect(Collectors.toList());
+		} catch (AuthenticationException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 
-		RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
-
-		return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
-				userDetails.getUsername(), userDetails.getEmail(), roles));
-	}
-
-	@PostMapping("/refreshtoken")
-	public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
-		String requestRefreshToken = request.getRefreshToken();
-
-		return refreshTokenService.findByToken(requestRefreshToken).map(refreshTokenService::verifyExpiration)
-				.map(RefreshToken::getUser).map(user -> {
-					String token = jwtUtils.generateTokenFromUsername(user.getUsername());
-					return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
-				})
-				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
+		}
 	}
 
 	@PostMapping("/signup")
@@ -139,7 +141,23 @@ public class AuthController {
 		user.setRoles(roles);
 		userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
+	}
+
+	@PostMapping("/refreshtoken")
+	public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
+		return Arrays.stream(request.getCookies()).filter(cookie -> "refresh".equals(cookie.getName())).findFirst()
+				.map(Cookie::getValue).flatMap(refreshTokenService::findByToken)
+				.map(refreshTokenService::verifyExpiration).map(RefreshToken::getUser).map(user -> {
+					String token = jwtUtils.GenerateToken(user.getUsername());
+					ResponseCookie cookie = ResponseCookie.from("accessToken", token).httpOnly(true).secure(false)
+							.path("/").maxAge(expiration).build();
+					response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+					return ResponseEntity.status(HttpStatus.OK).body("Successfully refreshed token");
+				}).orElseGet(() -> {
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+							.body("Refresh token cookie is not present or invalid!");
+				});
 	}
 
 }
