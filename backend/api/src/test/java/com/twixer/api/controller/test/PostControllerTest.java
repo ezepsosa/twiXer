@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.mapping.Map;
@@ -21,8 +22,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twixer.api.entity.Post;
 import com.twixer.api.entity.payload.request.LoginRequest;
 import com.twixer.api.entity.payload.response.JwtResponse;
 
@@ -31,7 +34,7 @@ import jakarta.servlet.http.Cookie;
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
-public class UserControllerTest {
+public class PostControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -47,30 +50,22 @@ public class UserControllerTest {
 		testLoginRequest.setUsername("john_doe");
 		testLoginRequest.setPassword("hashed_password");
 		MockHttpServletResponse testLoginResponse = this.mockMvc.perform(post("/api/v1/auth/signin")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(testLoginRequest)))
-				.andReturn()
-				.getResponse();
+				.contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(testLoginRequest)))
+				.andReturn().getResponse();
 		this.cookie = testLoginResponse.getCookie("accessToken");
 
 	}
 
 	@Test
 	public void shouldShowAllUsers() throws Exception {
-		this.mockMvc.perform(
-				get("/api/v1/user/all").contentType(MediaType.APPLICATION_JSON).cookie(this.cookie))
+		this.mockMvc.perform(get("/api/v1/post/all").contentType(MediaType.APPLICATION_JSON).cookie(this.cookie))
 				.andExpect(status().isOk());
 	}
 
 	@Test
 	public void shouldShowAllFollowings() throws Exception {
-		this.mockMvc.perform(get("/api/v1/user/following/all").contentType(MediaType.APPLICATION_JSON)
-				.cookie(this.cookie)).andExpect(status().isOk());
-	}
-	@Test
-	public void shouldShowSuggestionsToFollow() throws Exception {
-		this.mockMvc.perform(get("/api/v1/user/following/suggestions").contentType(MediaType.APPLICATION_JSON)
-				.cookie(this.cookie)).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/v1/post/recent").contentType(MediaType.APPLICATION_JSON).cookie(this.cookie))
+				.andExpect(status().isOk());
 	}
 
 }
