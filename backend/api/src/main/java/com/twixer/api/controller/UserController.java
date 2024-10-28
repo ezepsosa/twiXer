@@ -3,6 +3,7 @@ package com.twixer.api.controller;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,11 @@ public class UserController {
 	@GetMapping("/following/suggestions")
 	public Set<User> getSuggestionsToFollowByUser(HttpServletRequest request) {
 		return userService.showSuggestionsToFollowByUser(request.getCookies());
+	}
+	
+	@GetMapping("/check/session")
+	public ResponseEntity<?> refreshToken(HttpServletRequest request) {
+		return ResponseEntity.ok("Session is active");
 	}
 	
 }

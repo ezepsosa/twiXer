@@ -2,6 +2,7 @@ package com.twixer.api.controller;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -146,8 +148,13 @@ public class AuthController {
 
 	@PostMapping("/refreshtoken")
 	public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
-		return Arrays.stream(request.getCookies()).filter(cookie -> "refresh".equals(cookie.getName())).findFirst()
-				.map(Cookie::getValue).flatMap(refreshTokenService::findByToken)
+		if(request.getCookies() != null) {
+			
+		return Arrays.stream(request.getCookies())
+				.filter(cookie -> "refresh".equals(cookie.getName()))
+				.findFirst()
+				.map(Cookie::getValue)
+				.flatMap(refreshTokenService::findByToken)
 				.map(refreshTokenService::verifyExpiration).map(RefreshToken::getUser).map(user -> {
 					String token = jwtUtils.GenerateToken(user.getUsername());
 					ResponseCookie cookie = ResponseCookie.from("accessToken", token).httpOnly(true).secure(false)
@@ -158,6 +165,13 @@ public class AuthController {
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 							.body("Refresh token cookie is not present or invalid!");
 				});
+		
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("No cookies found!");
+		}
 	}
+
+
 
 }

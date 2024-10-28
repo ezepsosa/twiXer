@@ -20,6 +20,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
 
+	private static final String TOKEN_COOKIE_NAME = "accessToken"; // Nombre de la cookie
+
 	@Autowired
 	private JwtUtils jwtUtils;
 
@@ -35,7 +37,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 		if (request.getCookies() != null) {
 			for (Cookie cookie : request.getCookies()) {
-				if (cookie.getName().equals("accessToken")) {
+				if (cookie.getName().equals(TOKEN_COOKIE_NAME)) {
 					token = cookie.getValue();
 				}
 			}
@@ -44,16 +46,22 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 			return;
 		}
-		username = jwtUtils.extractUsername(token);
-		if (username != null) {
-			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-			if (jwtUtils.validateToken(token, userDetails)) {
-				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-						userDetails, null, userDetails.getAuthorities());
-				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+		try {
+			username = jwtUtils.extractUsername(token);
+			if (username != null) {
+				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+				if (jwtUtils.validateToken(token, userDetails)) {
+					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+							userDetails, null, userDetails.getAuthorities());
+					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+				}
 			}
+		}catch(Exception e) {
+		    System.err.println("Couldn't be authenticated: " + e.getMessage());
+
 		}
+
 		filterChain.doFilter(request, response);
 	}
 
