@@ -10,7 +10,7 @@ import { Props } from "./types";
 export function FollowSuggestion({ user }: Props) {
   return (
     <Container>
-      <Image src={user.profileImage} />
+      <Image src={user.profilePictureUrl} />
       <InfoUserContainer>
         <TextContainer>
           <PrimarySpan>{user.name}</PrimarySpan>
