@@ -2,16 +2,19 @@ import { BigLogo, Container, LeftContainer, RightContainer } from "./style";
 import { PrimaryButton, PrimarySpan } from "../../styles/style";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
-import { useAuth } from "../../provider/useAuth";
 import { Navigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({
+  isAuthenticated,
+}: {
+  isAuthenticated: boolean;
+}) {
   const [openLoginForm, setOpenLoginForm] = useState<boolean>(false);
-  const auth = useAuth();
   function changeLoginFormBehaviour() {
     setOpenLoginForm((previousValue) => !previousValue);
   }
-  if (auth.token != "" && auth.token != null) {
+
+  if (isAuthenticated) {
     return <Navigate to={"/"}></Navigate>;
   }
 

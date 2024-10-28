@@ -19,11 +19,10 @@ import {
   StyledLinkLogin,
   LoginFormContainer,
 } from "./style";
-import { useAuth } from "../../../provider/useAuth";
 import { FormError } from "./types";
+import { Login } from "../../../components/api";
 
 export default function LoginForm({ closeModal }: { closeModal: () => void }) {
-  const auth = useAuth();
   //useState definition
   const [nextStepLogin, setNextStepLogin] = useState<boolean>(false);
   const [errors, setErrors] = useState<FormError>({
@@ -52,12 +51,12 @@ export default function LoginForm({ closeModal }: { closeModal: () => void }) {
         passwordError: false,
       });
       try {
-        // Llama a la función loginAction y espera su resultado
-        await auth.loginAction(loginRequest);
+        await Login(loginRequest);
+        window.location.href = "/";
       } catch {
         setErrors({
           ...errors,
-          authenticationError: true, // Establece un error de inicio de sesión
+          authenticationError: true,
         });
       }
     }

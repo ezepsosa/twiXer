@@ -50,5 +50,15 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  refreshToken: string;
   accessToken: string;
+}
+
+export interface RefreshTokenRequest {
+  refreshTokenRequest: string;
+}
+
+export interface RefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
 }
