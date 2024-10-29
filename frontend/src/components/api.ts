@@ -41,7 +41,9 @@ apiService.interceptors.response.use(
           await RefreshToken();
           return apiService(originalRequest);
         } catch {
+          if (window.location.pathname != "/login") {
           return (window.location.href = "/login");
+          }
         } finally {
           isRefreshing = false;
         }
