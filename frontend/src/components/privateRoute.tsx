@@ -8,7 +8,6 @@ export const PrivateRoute = ({
   isAuthenticated: boolean;
 }) => {
   if (!isAuthenticated) {
-    console.log("toLogin");
     return <Navigate to={"/login"}></Navigate>;
   }
   return (

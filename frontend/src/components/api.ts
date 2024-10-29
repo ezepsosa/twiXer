@@ -16,7 +16,15 @@ const apiService = axios.create({
   },
   withCredentials: true,
 });
-/*
+
+const apiCheckService = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+});
+
 let isRefreshing = false;
 
 apiService.interceptors.response.use(
@@ -42,7 +50,7 @@ apiService.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-*/
+
 // Función para obtener usuarios
 export async function getUsers(): Promise<User[]> {
   try {
@@ -148,8 +156,8 @@ export async function Login(login: LoginRequest): Promise<LoginResponse> {
       };
     } else {
       throw {
-        message: "An unexpected error occurred autheticating",
-        statusText: "Unkown Error",
+        message: "An unexpected error occurred authenticating",
+        statusText: "Unknown Error",
         status: 500,
       };
     }
@@ -158,7 +166,7 @@ export async function Login(login: LoginRequest): Promise<LoginResponse> {
 
 export async function RefreshToken() {
   try {
-    const res: AxiosResponse<RefreshTokenResponse> = await apiService.post(
+    const res: AxiosResponse<RefreshTokenResponse> = await apiCheckService.post(
       "auth/refreshtoken"
     );
     return res.data;
@@ -171,8 +179,8 @@ export async function RefreshToken() {
       };
     } else {
       throw {
-        message: "An unexpected error occurred autheticating",
-        statusText: "Unkown Error",
+        message: "An unexpected error occurred authenticating",
+        statusText: "Unknown Error",
         status: 500,
       };
     }
@@ -180,11 +188,7 @@ export async function RefreshToken() {
 }
 export async function CheckConnection() {
   try {
-    const res: AxiosResponse = await apiService.get("user/check/session", {
-      headers: {
-        "Skip-Interceptor": "true",
-      },
-    });
+    const res: AxiosResponse = await apiService.get("user/check/session");
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -195,8 +199,8 @@ export async function CheckConnection() {
       };
     } else {
       throw {
-        message: "An unexpected error occurred autheticating",
-        statusText: "Unkown Error",
+        message: "An unexpected error occurred authenticating",
+        statusText: "Unknown Error",
         status: 500,
       };
     }
