@@ -62,3 +62,11 @@ export interface RefreshTokenResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface PrimaryBtnProps {
+  $backgroundColor?: string;
+  $hoverBackgroundColor?: string;
+  $hoverBorder?: string;
+  $hoverColor?: string;
+  $color?: string;
+}

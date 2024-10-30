@@ -210,3 +210,49 @@ export async function CheckConnection() {
     }
   }
 }
+
+export async function followUser(userId: number) {
+  try {
+    const res: AxiosResponse = await apiService.post(
+      `user/add/following/${userId}`
+    );
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed following user",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred following user",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function unfollowUser(userId: number) {
+  try {
+    const res: AxiosResponse = await apiService.post(
+      `user/delete/following/${userId}`
+    );
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed unfollowing user",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred unfollowing user",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}

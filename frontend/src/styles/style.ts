@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {
   ImgProps,
+  PrimaryBtnProps,
   PrimaryButtonProps,
   TextProps,
   styledLinkPostProps,
@@ -73,8 +74,8 @@ export const Image = styled.img<ImgProps>`
   }};
 `;
 
-export const PrimaryBtn = styled.button`
-  border: 0 solid black;
+export const PrimaryBtn = styled.button<PrimaryBtnProps>`
+  border: 1px solid gray;
   border-radius: 2rem;
   height: 1.8rem;
   padding: 0 1.1rem;
@@ -82,10 +83,13 @@ export const PrimaryBtn = styled.button`
   font-style: normal;
   font-size: 0.875rem;
   cursor: pointer;
-  color: #ffff;
-  background-color: #0f1419;
+  color: ${({ $color }) => $color || "#ffff"};
+  background-color: ${({ $backgroundColor }) => $backgroundColor || "#0f1419"};
   &:hover {
-    background-color: #272c30;
+    background-color: ${({ $hoverBackgroundColor }) =>
+      $hoverBackgroundColor || "#272c30"};
+    border: ${({ $hoverBorder }) => $hoverBorder || "0 solid black"};
+    color: ${({ $hoverColor }) => $hoverColor || "#ffff"};
     transition: 0.5s;
   }
 `;
