@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	Boolean existsByEmail(String email);
 	
-	@Query("SELECT u FROM User u WHERE u.username NOT IN (SELECT f.username FROM User user JOIN user.followings f WHERE user.username = :username)")
+	@Query("SELECT u FROM User u WHERE u.username NOT IN (SELECT f.username FROM User user JOIN user.followings f WHERE user.username = :username) AND u.username <> :username")
 	Set<User> findRandomUsersToFollow(String username);
 	
 }
