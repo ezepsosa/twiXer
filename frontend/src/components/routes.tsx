@@ -4,6 +4,8 @@ import Login from "../pages/Login";
 import { PrivateRoute } from "./privateRoute";
 import { useEffect, useState } from "react";
 import { CheckConnection } from "./api";
+import Test from "../pages/TEST";
+import { Loading } from "./Loading";
 
 export function RoutesComponent() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -23,11 +25,12 @@ export function RoutesComponent() {
     checkAuthStatus();
   }, []);
   if (loading) {
-    return <p>loading</p>;
+    return <Loading />;
   }
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/test" element={<Test />} />
         <Route
           path="/login"
           element={<Login isAuthenticated={isAuthenticated} />}
