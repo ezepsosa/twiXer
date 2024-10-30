@@ -1,25 +1,41 @@
 package com.twixer.api.service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.twixer.api.entity.Post;
 import com.twixer.api.repository.PostRepository;
+import com.twixer.api.security.jwt.JwtUtils;
+
+import jakarta.servlet.http.Cookie;
 
 @Service
 public class PostService {
-	
+
 	@Autowired
 	private PostRepository postRepository;
 	
-	public List<Post> getAllPosts(){
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	public List<Post> getAllPosts() {
 		return this.postRepository.findAll();
 	}
-	
+
 	public List<Post> getPostsOrderedByDate() {
 		return this.postRepository.findAllByOrderByDateAsc();
 	}
-	
+
+	public Set<Post> getRecentPostsFromFollowers(Cookie[] cookies) {
+		return Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("accessToken"))
+				.findFirst()
+				.map(Cookie::getValue)
+				.map(jwtUtils::extractUsername)
+				.map(postRepository::findRandomPostFromFollowers).orElse(Set.of());
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.twixer.api.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.twixer.api.entity.Post;
 import com.twixer.api.service.PostService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/post")
@@ -27,5 +30,10 @@ public class PostController {
 	@GetMapping("recent")
 	public List<Post> getRecentPosts(){
 		return this.postService.getPostsOrderedByDate();
+	}
+	
+	@GetMapping("following/recent")
+	public Set<Post> getRecentPostsFromFollowers(HttpServletRequest request){
+		return this.postService.getRecentPostsFromFollowers(request.getCookies());
 	}
 }
