@@ -31,13 +31,16 @@ export default function TweetPost({ tweets }: Props) {
               <UserUniqueNameText>@{tweet.user.username}</UserUniqueNameText>
             </InfoUserContainer>
             <PrimaryText>{tweet.text}</PrimaryText>
-            <GridContainer $mediaNumber={tweet.media.length}>
-              {tweet.media.map((image, index) => (
-                <GridItem key={index}>
-                  <Media src={image}></Media>
-                </GridItem>
-              ))}
+            <GridContainer $mediaNumber={tweet.media?.length}>
+              {tweet.media
+                ? tweet.media.map((image, index) => (
+                    <GridItem key={index}>
+                      <Media src={image}></Media>
+                    </GridItem>
+                  ))
+                : null}
             </GridContainer>
+
             <IconsContainer>
               <SingleIconContainer>
                 <SecondarySpan>

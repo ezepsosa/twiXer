@@ -45,3 +45,8 @@ export const IconsContainer = styled.div`
   gap: 1rem;
   margin: 0 1rem;
 `;
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;

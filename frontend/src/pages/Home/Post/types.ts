@@ -1,3 +1,5 @@
+import { TweetRequest } from "../../../components/types";
+
 export interface InnerContainerProps {
   $justifycontent?: string;
   $padding?: string;
@@ -11,4 +13,8 @@ export interface ImageProps {
 
 export interface InputTextProps {
   $scrollHeight: number;
+}
+
+export interface interfacePostProps {
+  addPostAndUpdateLocalList: (Post: TweetRequest) => Promise<true | undefined>;
 }

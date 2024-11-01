@@ -3,6 +3,7 @@ import {
   LoginResponse,
   RefreshTokenResponse,
   Tweet,
+  TweetRequest,
   User,
 } from "./types";
 import axios, { AxiosResponse } from "axios";
@@ -114,6 +115,28 @@ export async function getAllFollowingPostsOrderedByDate(): Promise<Tweet[]> {
     } else {
       throw {
         message: "An unexpected error occurred fetching post ordered by date",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+// Method to add a new Post
+export async function addNewPost(post: TweetRequest): Promise<Tweet> {
+  try {
+    const res: AxiosResponse<Tweet> = await apiService.post("post/add", post);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw {
+        message: "Failed to add post",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred adding a post",
         statusText: "Unknown Error",
         status: 500,
       };

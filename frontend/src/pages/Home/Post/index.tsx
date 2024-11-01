@@ -1,14 +1,37 @@
 import { useState } from "react";
-import { Container, IconsContainer, InnerContainer, InputText } from "./style";
+import {
+  Container,
+  ErrorContainer,
+  IconsContainer,
+  InnerContainer,
+  InputText,
+} from "./style";
 import { AiOutlinePicture } from "react-icons/ai";
 import { MdOutlineGifBox } from "react-icons/md";
 import { MdOutlinePoll } from "react-icons/md";
 import { FaRegSmile } from "react-icons/fa";
 import { RiCalendarScheduleLine } from "react-icons/ri";
-import { Image, LinkPost } from "../../../styles/style";
+import { ErrorSpan, Image, LinkPost } from "../../../styles/style";
+import { interfacePostProps } from "./types";
+import { TweetRequest } from "../../../components/types";
 
-export default function Post() {
+export default function Post({
+  addPostAndUpdateLocalList,
+}: interfacePostProps) {
   const [inputPostValue, setInputPostValue] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
+
+  async function prepareToPost() {
+    const post: TweetRequest = {
+      text: inputPostValue,
+    };
+    setError(!(await addPostAndUpdateLocalList(post)));
+    if (error) {
+      console.log();
+      setInputPostValue("");
+    }
+  }
+  console.log(error);
   return (
     <Container>
       <InnerContainer $padding="1rem">
@@ -34,8 +57,15 @@ export default function Post() {
           <FaRegSmile color="#1d9bf0" />
           <RiCalendarScheduleLine color="#1d9bf0" />
         </IconsContainer>
-        <LinkPost width="10%">Post</LinkPost>
+        <LinkPost onClick={prepareToPost} width="10%">
+          Post
+        </LinkPost>
       </InnerContainer>
+      <ErrorContainer>
+        {error ? (
+          <ErrorSpan>There was an error trying to post it ...</ErrorSpan>
+        ) : null}
+      </ErrorContainer>
     </Container>
   );
 }

@@ -22,6 +22,10 @@ export interface Tweet {
   media: string[];
   date: string;
 }
+export interface TweetRequest {
+  text: string;
+  media?: string[];
+}
 
 export interface User {
   id: number;
