@@ -1,6 +1,6 @@
 package com.twixer.api.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import jakarta.persistence.ElementCollection;
@@ -40,5 +40,15 @@ public class Post {
     @ElementCollection
     private List<String> media;
     
-    private LocalDate date;
+    private LocalDateTime date;
+    
+    public Post(User user, String text, List<String> media) {
+    	this.user = user;
+    	this.text = text;
+    	this.media = media;
+    	this.reposts = 0;
+    	this.likes = 0;
+    	this.date = LocalDateTime.now();
+    	
+    }
 }
