@@ -15,7 +15,7 @@ import com.twixer.api.exceptions.TokenRefreshException;
 @RestControllerAdvice
 public class TokenControllerAdvice {
 
-  @ExceptionHandler(value = TokenRefreshException.class)
+  @ExceptionHandler(TokenRefreshException.class)
   @ResponseStatus(HttpStatus.FORBIDDEN)
   public ErrorMessage handleTokenRefreshException(TokenRefreshException ex, WebRequest request) {
     return new ErrorMessage(
