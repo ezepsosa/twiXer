@@ -25,9 +25,8 @@ const options: menuOption[] = [
 ];
 
 function Home() {
-  const [followedPost, setFollowedPost] = useState<Tweet[]>([]);
-  const [randomPost, setRandomPost] = useState<Tweet[]>([]);
-  const [optionSelected, setOptionSelected] = useState<string>("Following");
+  const [post, setPost] = useState<Tweet[]>([]);
+  const [optionSelected, setOptionSelected] = useState<string>(options[0].name);
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -38,10 +37,11 @@ function Home() {
   useEffect(() => {
     async function loadPosts() {
       try {
-        const dataRandomPosts = await getAllRandomPostsOrderedByDate();
-        const dataFollowedPosts = await getAllFollowingPostsOrderedByDate();
-        setFollowedPost(dataFollowedPosts);
-        setRandomPost(dataRandomPosts);
+        const data =
+          optionSelected === options[0].name
+            ? await getAllRandomPostsOrderedByDate()
+            : await getAllFollowingPostsOrderedByDate();
+        setPost(data);
       } catch (err) {
         console.log(err);
       } finally {
@@ -49,8 +49,9 @@ function Home() {
       }
     }
     loadPosts();
-  }, []);
+  }, [optionSelected]);
 
+  console.log("loadaed");
   return (
     <Container>
       <InnerContainer $width="34rem" $gap="0rem">
@@ -60,12 +61,7 @@ function Home() {
         />
         <Post />
         {loading ? <Loading /> : null}
-
-        {optionSelected == options[0].name ? (
-          <TweetPost tweets={randomPost} />
-        ) : (
-          <TweetPost tweets={followedPost} />
-        )}
+        <TweetPost tweets={post} />
       </InnerContainer>
       <InnerContainer $border="none" $toHide={true}>
         <SearchBar />
