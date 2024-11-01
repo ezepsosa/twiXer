@@ -43,12 +43,13 @@ public class PostService {
 				.orElse(Set.of());
 	}
 
-	public void addNewPost(@Valid PostRequest postRequest, Cookie[] cookies) {
+	public Post addNewPost(@Valid PostRequest postRequest, Cookie[] cookies) {
 		User author = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("accessToken")).findFirst()
 				.map(Cookie::getValue).map(jwtUtils::extractUsername).map(userRepository::findByUsername).get()
 				.orElseThrow(() -> new IllegalArgumentException("User from token not found"));
 		Post post = new Post(author, postRequest.getText(), postRequest.getMedia());
 		postRepository.save(post);
+		return post;
 	}
 
 }
