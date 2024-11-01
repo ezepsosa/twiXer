@@ -97,6 +97,15 @@ export const PrimaryBtn = styled.button<PrimaryBtnProps>`
 export const PrimarySpan = styled.span<TextProps>`
   font-family: "Roboto", sans-serif;
   font-weight: 700;
+
+  ${({ shouldBeShortened }) =>
+    shouldBeShortened &&
+    `
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 8rem;
+  `}
+
   font-size: ${({ $fontSize }) => $fontSize || "0.8rem"};
   color: ${({ $color }) => $color || "black"};
 `;

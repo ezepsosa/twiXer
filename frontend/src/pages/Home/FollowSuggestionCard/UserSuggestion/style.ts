@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   padding: 1rem;
   cursor: pointer;
+  justify-content: space-between;
   &:hover {
     background-color: #f3f3f3;
   }
@@ -19,6 +19,5 @@ export const TextContainer = styled.div`
 export const InfoUserContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 4rem;
-  juistify-content: space-between;
+  gap: 0.5rem;
 `;

@@ -26,25 +26,25 @@ export function FollowSuggestion({ user }: Props) {
 
   return (
     <Container>
-      <Image src={user.profilePictureUrl} />
       <InfoUserContainer>
+        <Image src={user.profilePictureUrl} />
         <TextContainer>
-          <PrimarySpan>{user.name}</PrimarySpan>
+          <PrimarySpan shouldBeShortened={true}>{user.name}</PrimarySpan>
           <UserUniqueNameText>@{user.username}</UserUniqueNameText>
         </TextContainer>
-        <PrimaryBtn
-          $backgroundColor={followed ? "white" : "#0f1419"}
-          $color={followed ? "black" : "#ffff"}
-          $hoverColor={followed ? "#f4212e" : "#ffff"}
-          $hoverBackgroundColor={followed ? "#fcbbbf" : "#272c30"}
-          $hoverBorder={followed ? "1px solid red" : "1px solid gray"}
-          onMouseEnter={() => (followed ? setActionText("Unfollow") : null)}
-          onMouseLeave={() => setActionText(followed ? "Following" : "Follow")}
-          onClick={() => handleButtonBehaviour()}
-        >
-          {actionText}
-        </PrimaryBtn>
       </InfoUserContainer>
+      <PrimaryBtn
+        $backgroundColor={followed ? "white" : "#0f1419"}
+        $color={followed ? "black" : "#ffff"}
+        $hoverColor={followed ? "#f4212e" : "#ffff"}
+        $hoverBackgroundColor={followed ? "#fcbbbf" : "#272c30"}
+        $hoverBorder={followed ? "1px solid red" : "1px solid gray"}
+        onMouseEnter={() => (followed ? setActionText("Unfollow") : null)}
+        onMouseLeave={() => setActionText(followed ? "Following" : "Follow")}
+        onClick={() => handleButtonBehaviour()}
+      >
+        {actionText}
+      </PrimaryBtn>
     </Container>
   );
 }
