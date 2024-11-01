@@ -29,7 +29,7 @@ export function FollowSuggestion({ user }: Props) {
       <InfoUserContainer>
         <Image src={user.profilePictureUrl} />
         <TextContainer>
-          <PrimarySpan shouldBeShortened={true}>{user.name}</PrimarySpan>
+          <PrimarySpan $shouldBeShortened={true}>{user.name}</PrimarySpan>
           <UserUniqueNameText>@{user.username}</UserUniqueNameText>
         </TextContainer>
       </InfoUserContainer>

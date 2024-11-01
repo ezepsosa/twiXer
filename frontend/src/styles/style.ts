@@ -98,8 +98,8 @@ export const PrimarySpan = styled.span<TextProps>`
   font-family: "Roboto", sans-serif;
   font-weight: 700;
 
-  ${({ shouldBeShortened }) =>
-    shouldBeShortened &&
+  ${({ $shouldBeShortened }) =>
+    $shouldBeShortened &&
     `
     overflow: hidden;
     text-overflow: ellipsis;

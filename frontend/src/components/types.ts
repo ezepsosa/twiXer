@@ -6,7 +6,7 @@ export interface menuOption {
 export interface TextProps {
   $fontSize?: string;
   $color?: string;
-  shouldBeShortened?: boolean;
+  $shouldBeShortened?: boolean;
 }
 
 export interface styledLinkPostProps {
