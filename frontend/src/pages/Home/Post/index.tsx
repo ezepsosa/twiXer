@@ -26,8 +26,7 @@ export default function Post({
       text: inputPostValue,
     };
     setError(!(await addPostAndUpdateLocalList(post)));
-    if (error) {
-      console.log();
+    if (!error) {
       setInputPostValue("");
     }
   }

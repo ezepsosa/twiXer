@@ -66,13 +66,13 @@ public class UserService {
 	}
 
 	public void unfollowUser(Cookie[] cookies, Long id) {
-		User userToFollow = userRepository.findById(id)
+		User userToUnfollow = userRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("User to follow with id " + id + " not found"));
 		User user = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(ACCESS_COOKIE)).findFirst()
 				.map(Cookie::getValue).map(jwtUtils::extractUsername).flatMap(userRepository::findByUsername)
 				.orElseThrow(() -> new IllegalArgumentException("User from token not found"));
-		if (user.getFollowings().contains(userToFollow)) {
-			user.getFollowings().remove(userToFollow);
+		if (user.getFollowings().contains(userToUnfollow)) {
+			user.getFollowings().remove(userToUnfollow);
 			userRepository.save(user);
 		}
 

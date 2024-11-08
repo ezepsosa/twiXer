@@ -43,8 +43,8 @@ public class PostController {
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<?> addNewPost(@Valid @RequestBody PostRequest postRequest, HttpServletRequest request){
-		this.postService.addNewPost(postRequest, request.getCookies());
-		return ResponseEntity.ok("Post succesfully created");
+	public ResponseEntity<Post> addNewPost(@Valid @RequestBody PostRequest postRequest, HttpServletRequest request){
+		Post res = this.postService.addNewPost(postRequest, request.getCookies());
+		return ResponseEntity.ok(res);
 	}
 }
