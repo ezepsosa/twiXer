@@ -38,9 +38,9 @@ public class Post {
 	private User user;
 
 	private String text;
-	
+
 	@ManyToMany
-	@JoinTable(name = "user_respost", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="post_id"))
+	@JoinTable(name = "user_respost", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
 	private Set<User> repostBy = new HashSet<User>();
 
 	@ManyToMany
@@ -61,4 +61,13 @@ public class Post {
 		this.date = LocalDateTime.now();
 
 	}
+	
+    public Integer getResposts() {
+        return repostBy.size();
+    }
+
+    public Integer getFavorites() {
+        return likedBy.size();
+    }
+
 }
