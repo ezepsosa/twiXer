@@ -62,7 +62,7 @@ public class Post {
 
 	}
 	
-    public Integer getResposts() {
+    public Integer getReposts() {
         return repostBy.size();
     }
 
