@@ -32,6 +32,12 @@ public class PostService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	private User getUserFromCookie(Cookie[] cookies) {
+		return Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(ACCESS_COOKIE)).findFirst()
+				.map(Cookie::getValue).map(jwtUtils::extractUsername).map(userRepository::findByUsername).get()
+				.orElseThrow(() -> new IllegalArgumentException("User from token not found"));
+	}
 
 	public List<Post> getAllPosts() {
 		return this.postRepository.findAll();
@@ -59,6 +65,41 @@ public class PostService {
 		Optional<Post> optionaPost = postRepository.findById(id);
 		if (optionaPost.isPresent()) {
 			Post post = optionaPost.get();
+			Set<User> postReposteddBy = post.getRepostBy();
+			postReposteddBy.add(user);
+			post.setRepostBy(postReposteddBy);
+			postRepository.save(post);
+		} else {
+			throw new IllegalArgumentException("Post with id " + id + " not found");
+		}
+	}
+
+	public void deleteRepost(Long id, Cookie[] cookies) {
+		User user = getUserFromCookie(cookies);
+		Optional<Post> optionaPost = postRepository.findById(id);
+		if (optionaPost.isPresent()) {
+			Post post = optionaPost.get();
+			Set<User> postReposteddBy = post.getRepostBy();
+			postReposteddBy.remove(user);
+			post.setRepostBy(postReposteddBy);
+			postRepository.save(post);
+		} else {
+			throw new IllegalArgumentException("Post with id " + id + " not found");
+		}
+	}
+
+	public Set<Post> getRepostsFromUserFromCookie(Cookie[] cookies) {
+		User user = getUserFromCookie(cookies);
+		return postRepository.findAll().stream().filter(post -> post.getRepostBy().contains(user))
+				.collect(Collectors.toSet());
+	}
+
+	
+	public void addFavorite(Long id, Cookie[] cookies) {
+		User user = getUserFromCookie(cookies);
+		Optional<Post> optionaPost = postRepository.findById(id);
+		if (optionaPost.isPresent()) {
+			Post post = optionaPost.get();
 			Set<User> postLikedBy = post.getLikedBy();
 			postLikedBy.add(user);
 			post.setLikedBy(postLikedBy);
@@ -68,7 +109,7 @@ public class PostService {
 		}
 	}
 
-	public void deleteRepost(Long id, Cookie[] cookies) {
+	public void deleteFavorite(Long id, Cookie[] cookies) {
 		User user = getUserFromCookie(cookies);
 		Optional<Post> optionaPost = postRepository.findById(id);
 		if (optionaPost.isPresent()) {
@@ -82,16 +123,12 @@ public class PostService {
 		}
 	}
 
-	public Set<Post> getRepostsFromUserFromCookie(Cookie[] cookies) {
+	public Set<Post> getFavoriteFromUserFromCookie(Cookie[] cookies) {
 		User user = getUserFromCookie(cookies);
 		return postRepository.findAll().stream().filter(post -> post.getLikedBy().contains(user))
 				.collect(Collectors.toSet());
 	}
 
-	private User getUserFromCookie(Cookie[] cookies) {
-		return Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(ACCESS_COOKIE)).findFirst()
-				.map(Cookie::getValue).map(jwtUtils::extractUsername).map(userRepository::findByUsername).get()
-				.orElseThrow(() -> new IllegalArgumentException("User from token not found"));
-	}
+
 
 }

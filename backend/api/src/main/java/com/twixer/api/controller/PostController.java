@@ -49,9 +49,8 @@ public class PostController {
 	}
 
 	@GetMapping("reposts")
-	public Set<Post> getPostsLiked(HttpServletRequest request) {
+	public Set<Post> getPostsReposted(HttpServletRequest request) {
 		return postService.getRepostsFromUserFromCookie(request.getCookies());
-
 	}
 
 	@PostMapping("reposts/{id}")
@@ -64,6 +63,23 @@ public class PostController {
 	public ResponseEntity<String> deleteRepost(@PathVariable Long id, HttpServletRequest request) {
 		postService.deleteRepost(id, request.getCookies());
 		return ResponseEntity.ok("Successfully removed repost");
+	}
+	
+	@GetMapping("favorite")
+	public Set<Post> getPostsLiked(HttpServletRequest request) {
+		return postService.getFavoriteFromUserFromCookie(request.getCookies());
+	}
+
+	@PostMapping("favorite/{id}")
+	public ResponseEntity<String> addFavorite(@PathVariable Long id, HttpServletRequest request) {
+		postService.addFavorite(id, request.getCookies());
+		return ResponseEntity.ok("Succesfully added to favorites");
+	}
+
+	@DeleteMapping("favorite/{id}")
+	public ResponseEntity<String> deleteFavorite(@PathVariable Long id, HttpServletRequest request) {
+		postService.deleteFavorite(id, request.getCookies());
+		return ResponseEntity.ok("Successfully removed post from favorites");
 	}
 
 }
