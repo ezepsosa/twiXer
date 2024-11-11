@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,12 +25,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("all")
+	@GetMapping
 	public List<User> getAllUsers() {
 		return userService.showAllUsers();
 	}
 
-	@GetMapping("/following/all")
+	@GetMapping("/following")
 	public Set<User> getUsersFollowedByUser(HttpServletRequest request) {
 		return userService.showUsersFollowedByUser(request.getCookies());
 	};
@@ -39,20 +40,20 @@ public class UserController {
 		return userService.showSuggestionsToFollowByUser(request.getCookies());
 	}
 
-	@PostMapping("/add/following/{id}")
+	@PostMapping("/following/{id}")
 	public ResponseEntity<String> followUser(@PathVariable Long id, HttpServletRequest request) {
 		userService.followUser(request.getCookies(), id);
 		return ResponseEntity.ok("Succesfully followed user");
 	}
 	
-	@PostMapping("/delete/following/{id}")
+	@DeleteMapping("/following/{id}")
 	public ResponseEntity<String> unfollowUser(@PathVariable Long id, HttpServletRequest request) {
 		userService.unfollowUser(request.getCookies(), id);
 		return ResponseEntity.ok("Succesfully unfollowed user");
 	}
 
-	@PostMapping("/following/status")
-	public Set<Long> getFollowStatus(@RequestBody  List<Long> listId, HttpServletRequest request) {
+	@GetMapping("/following/status")
+	public Set<Long> getFollowStatus(@RequestBody List<Long> listId, HttpServletRequest request) {
 		return userService.getFollowStatus(request.getCookies(), listId);
 
 	}
