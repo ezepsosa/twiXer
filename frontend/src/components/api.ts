@@ -57,7 +57,7 @@ apiService.interceptors.response.use(
 // Función para obtener usuarios
 export async function getUsers(): Promise<User[]> {
   try {
-    const res: AxiosResponse<User[]> = await apiService.get("user/all");
+    const res: AxiosResponse<User[]> = await apiService.get("user");
     return res.data; // Devuelve la lista de usuarios
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -101,9 +101,7 @@ export async function getAllRandomPostsOrderedByDate(): Promise<Tweet[]> {
 // Method to fetch every post ordered by Date from following users
 export async function getAllFollowingPostsOrderedByDate(): Promise<Tweet[]> {
   try {
-    const res: AxiosResponse<Tweet[]> = await apiService.get(
-      "post/following/recent"
-    );
+    const res: AxiosResponse<Tweet[]> = await apiService.get("post/following");
     return res.data; // Devuelve la lista de posts
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -125,7 +123,7 @@ export async function getAllFollowingPostsOrderedByDate(): Promise<Tweet[]> {
 // Method to add a new Post
 export async function addNewPost(post: TweetRequest): Promise<Tweet> {
   try {
-    const res: AxiosResponse<Tweet> = await apiService.post("post/add", post);
+    const res: AxiosResponse<Tweet> = await apiService.post("post", post);
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -237,7 +235,7 @@ export async function CheckConnection() {
 export async function followUser(userId: number) {
   try {
     const res: AxiosResponse = await apiService.post(
-      `user/add/following/${userId}`
+      `user/following/${userId}`
     );
     return res.data;
   } catch (error) {
@@ -259,8 +257,8 @@ export async function followUser(userId: number) {
 
 export async function unfollowUser(userId: number) {
   try {
-    const res: AxiosResponse = await apiService.post(
-      `user/delete/following/${userId}`
+    const res: AxiosResponse = await apiService.delete(
+      `user/following/${userId}`
     );
     return res.data;
   } catch (error) {
@@ -273,6 +271,134 @@ export async function unfollowUser(userId: number) {
     } else {
       throw {
         message: "An unexpected error occurred unfollowing user",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function getFavorite(): Promise<Tweet[]> {
+  try {
+    const res: AxiosResponse = await apiService.get(`post/favorite`);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed adding favorite post",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred adding a favorite post",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function postFavorite(postId: number) {
+  try {
+    const res: AxiosResponse = await apiService.post(`post/favorite/${postId}`);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed adding favorite post",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred adding a favorite post",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function deleteFavorite(postId: number) {
+  try {
+    const res: AxiosResponse = await apiService.delete(
+      `post/favorite/${postId}`
+    );
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed deleting favorite post",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred deleting a favorite post",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function getReposts(): Promise<Tweet[]> {
+  try {
+    const res: AxiosResponse = await apiService.get(`post/repost`);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed adding favorite post",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred adding a favorite post",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function postRepost(postId: number) {
+  try {
+    const res: AxiosResponse = await apiService.post(`post/repost/${postId}`);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed reposting",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred reposting",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function deleteRepost(postId: number) {
+  try {
+    const res: AxiosResponse = await apiService.delete(`post/repost/${postId}`);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed deleting favorite",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred deleting favorite",
         statusText: "Unknown Error",
         status: 500,
       };
