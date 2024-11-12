@@ -30,7 +30,6 @@ export default function Post({
       setInputPostValue("");
     }
   }
-  console.log(error);
   return (
     <Container>
       <InnerContainer $padding="1rem">

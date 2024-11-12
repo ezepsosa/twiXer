@@ -17,10 +17,10 @@ export interface Tweet {
   id: number;
   user: User;
   text: string;
-  reposts: number;
-  likes: number;
   media: string[];
   date: string;
+  favorites: number;
+  reposts: number;
 }
 export interface TweetRequest {
   text: string;
