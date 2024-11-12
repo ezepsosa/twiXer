@@ -48,18 +48,18 @@ public class PostController {
 		return this.postService.getRecentPostsFromFollowers(request.getCookies());
 	}
 
-	@GetMapping("reposts")
+	@GetMapping("repost")
 	public Set<Post> getPostsReposted(HttpServletRequest request) {
 		return postService.getRepostsFromUserFromCookie(request.getCookies());
 	}
 
-	@PostMapping("reposts/{id}")
+	@PostMapping("repost/{id}")
 	public ResponseEntity<String> addRepost(@PathVariable Long id, HttpServletRequest request) {
 		postService.addRepost(id, request.getCookies());
 		return ResponseEntity.ok("Succesfully reposted");
 	}
 
-	@DeleteMapping("reposts/{id}")
+	@DeleteMapping("repost/{id}")
 	public ResponseEntity<String> deleteRepost(@PathVariable Long id, HttpServletRequest request) {
 		postService.deleteRepost(id, request.getCookies());
 		return ResponseEntity.ok("Successfully removed repost");
