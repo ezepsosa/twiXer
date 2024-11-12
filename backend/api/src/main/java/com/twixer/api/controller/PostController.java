@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.twixer.api.entity.Post;
 import com.twixer.api.entity.payload.request.PostRequest;
+import com.twixer.api.entity.payload.response.Trend;
 import com.twixer.api.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -80,6 +81,13 @@ public class PostController {
 	public ResponseEntity<String> deleteFavorite(@PathVariable Long id, HttpServletRequest request) {
 		postService.deleteFavorite(id, request.getCookies());
 		return ResponseEntity.ok("Successfully removed post from favorites");
+	}
+	
+	@GetMapping("trends")
+	public Set<Trend> getTrends(){
+		return postService.calculateTrends();
+		
+		
 	}
 
 }
