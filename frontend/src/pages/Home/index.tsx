@@ -5,7 +5,6 @@ import { menuOption, Tweet, TweetRequest } from "../../components/types";
 import { SubscriptionCard } from "./FollowSuggestionCard";
 import Post from "./Post";
 import { Container, InnerContainer } from "./style";
-import { TrendCard } from "./TrendCard";
 import TweetPost from "../../components/Tweet";
 import {
   addNewPost,
@@ -13,6 +12,7 @@ import {
   getAllRandomPostsOrderedByDate,
 } from "../../components/api";
 import { Loading } from "../../components/Loading";
+import { TrendCard } from "./TrendCard";
 
 const options: menuOption[] = [
   {

@@ -7,6 +7,7 @@ import {
   User,
 } from "./types";
 import axios, { AxiosResponse } from "axios";
+import { Trend } from "./types";
 
 const API_BASE_URL = `http://localhost:8080/api/v1/`;
 
@@ -399,6 +400,27 @@ export async function deleteRepost(postId: number) {
     } else {
       throw {
         message: "An unexpected error occurred deleting favorite",
+        statusText: "Unknown Error",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function getTrends(): Promise<Trend[]> {
+  try {
+    const res: AxiosResponse = await apiService.get(`post/trends`);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw {
+        message: "Failed fetching trends",
+        statusText: error.response?.statusText || "Network Error",
+        status: error.response?.status || 500,
+      };
+    } else {
+      throw {
+        message: "An unexpected error occurred fetching trends",
         statusText: "Unknown Error",
         status: 500,
       };

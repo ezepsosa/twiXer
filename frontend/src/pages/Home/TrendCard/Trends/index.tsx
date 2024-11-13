@@ -4,21 +4,20 @@ import { Props } from "./types";
 import { Fragment } from "react"; // Agregar Fragment para uso correcto en el JSX
 
 export function Trends({ trends }: Props) {
+  console.log(trends);
   return (
     <Fragment>
       {trends?.length > 0 ? (
-        trends.map((trend, index) => (
+        trends.slice(0, 10).map((trend, index) => (
           <Container key={index}>
             <TextContainer>
-              <SecondarySpan>
-                {index + 1} - {trend.type} · Trending
-              </SecondarySpan>
+              <SecondarySpan>{index + 1} · Trending</SecondarySpan>
             </TextContainer>
             <TextContainer>
-              <PrimarySpan>{trend.trendName}</PrimarySpan>
+              <PrimarySpan>{trend.word}</PrimarySpan>
             </TextContainer>
             <TextContainer>
-              <SecondarySpan>{trend.count} posts</SecondarySpan>
+              <SecondarySpan>{trend.postCount} posts</SecondarySpan>
             </TextContainer>
           </Container>
         ))

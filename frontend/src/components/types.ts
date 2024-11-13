@@ -27,6 +27,10 @@ export interface TweetRequest {
   media?: string[];
 }
 
+export interface Trend {
+  word: string;
+  postCount: number;
+}
 export interface User {
   id: number;
   username: string;
