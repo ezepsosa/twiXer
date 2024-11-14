@@ -4,7 +4,6 @@ import { Props } from "./types";
 import { Fragment } from "react"; // Agregar Fragment para uso correcto en el JSX
 
 export function Trends({ trends }: Props) {
-  console.log(trends);
   return (
     <Fragment>
       {trends?.length > 0 ? (
